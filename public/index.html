@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode Scanner App</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script>
+
+    <style>
+        #output {
+            margin-top: 20px;
+        }
+
+        #scanner-container {
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .drawingBuffer {
+            display: none;
+        }
+
+        @media (max-width: 767px) {
+            #scanner-container {
+                margin-bottom: 20px; /* Adjust the margin as needed */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class=" mt-5">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">GCAC Tickets</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="/mytickets.html"> myTickets</a>
+                <a class="nav-item nav-link" href="/soldtickets.html">Sold Tickets</a>
+              </div>
+            </div>
+          </nav>
+        <div class="container-fluid">
+            <h1 class="display-6 text-center mb-4">GCAC Independence Gala</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <!-- Add this element to display the camera feed -->
+                        <button class="btn btn-primary" onclick="startScanner()">Use Camera to Scan</button>
+                        <button class="btn btn-danger ml-2" onclick="stopScanner()">Stop Camera</button>
+                        <div id="scanner-container" class="mt-3"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 border rounded shadow py-4">
+                    <div class="form-group">
+                        <label for="barcodeInput">Enter Ticket Number:</label>
+                        <input type="text" class="form-control" id="barcodeInput" placeholder="Scan ticket...">
+                        <button class="btn btn-primary mt-2" onclick="lookupTicket()">Lookup Ticket</button>
+                    </div>
+                    <div class="text-left">
+                        <div id="output" class="mt-3"></div>
+                        <h2>Change Ticket Status:</h2>
+                        <button class="btn btn-success m-2" onclick="toggleStatus('Redeemed')">Redeem</button>
+                        <button class="btn btn-secondary m-2" onclick="toggleStatus('Available')" disabled>Make it Available</button>
+                        <button class="btn btn-danger m-2" onclick="toggleStatus('Cancel')">Cancel</button>
+                        <button class="btn btn-secondary m-2 px-4" onclick="toggleStatus('Sold')">Sold</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <!-- Content for the left column, if any -->
+                </div>
+                <div class="col-md-6 text-center">
+                    <!-- Content for the right column, if any -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
