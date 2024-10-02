@@ -21,6 +21,7 @@ function loadTicketData() {
         .then(response => response.json())
         .then(data => {
           ticketData = data;
+            console.log('Ticket data loaded:', ticketData);
         })
         .catch(error => console.error('Error loading ticket data:', error));
 }
@@ -30,21 +31,32 @@ loadTicketData();
 
 // Function to lookup ticket status
 function lookupTicket() {
+    
+    // Get the ticket number from the input field
     // const barcodeInput = document.getElementById("barcodeInput").value;
+
+    // Get the ticket number from the input field with the prefix "GCAC-" already added
     const barcodeInput = "GCAC-" + document.getElementById("barcodeInput").value;
-
+    
+     // Get the output div
     const outputDiv = document.getElementById("output");
-
     if (!barcodeInput) {
         outputDiv.innerHTML = "<p class='text-light bg-danger p-3'>Please enter a valid ticket number.</p>";
         return;
     }
 
+        // Check if the ticket number exists in the ticketData object
     if (ticketData.hasOwnProperty(barcodeInput)) {
+        // Get the ticket status from the ticketData object
         const status = ticketData[barcodeInput];
+
+
+        // Display the ticket status in the output div
         outputDiv.innerHTML = `<p class='text-light bg-success p-3'>Ticket ${barcodeInput} status: ${status}</p>`;
     } else {
+        // Display an error message if the ticket number is not found
         outputDiv.innerHTML = "<p class='text-light bg-danger p-3'>Ticket not found.</p>";
+        console.log("Ticket not found");
     }
 }
 
@@ -56,13 +68,15 @@ function updateServer(ticketNumber, newStatus) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+            // Spread operator to copy all existing ticket data
             ...ticketData,
-            [ticketNumber]: newStatus,
+            // Update the ticket status
+            [ticketNumber]: newStatus, 
         }),
     })
-        .then(response => response.text())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error updating server:', error));
+        .then(response => response.text()) // Parse the JSON response
+        .then(data => console.log(data)) // Log the response
+        .catch(error => console.error('Error updating server:', error)); // Log errors
 }
 
 // Function to toggle ticket status
@@ -76,17 +90,23 @@ function toggleStatus(newStatus) {
         outputDiv.innerHTML = "<p class='text-light bg-danger p-3'>Please enter a valid ticket number.</p>";
         return;
     }
-
+     // Check if the ticket number exists in the ticketData object
     if (ticketData.hasOwnProperty(barcodeInput)) {
+        // Get the current ticket status
         const currentStatus = ticketData[barcodeInput];
+        // Update the ticket status if it is different from the new status
         if (currentStatus !== newStatus) {
+            // Update the ticket status in the ticketData object
             ticketData[barcodeInput] = newStatus;
+            // Display a success message in the output div
             outputDiv.innerHTML = `<p class='text-light bg-success p-3'>Ticket ${barcodeInput} status updated to ${newStatus}</p>`;
             updateServer(barcodeInput, newStatus);
         } else {
+            // Display a warning message if the ticket status is already the new status
             outputDiv.innerHTML = `<p class='text-light bg-warning p-3'>Ticket ${barcodeInput} is already ${newStatus}</p>`;
         }
     } else {
+        // Display an error message if the ticket number is not found
         outputDiv.innerHTML = "<p class='text-light bg-warning'>Ticket not found.</p>";
     }
 }
