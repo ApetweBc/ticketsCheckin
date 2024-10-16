@@ -21,12 +21,16 @@ app.get('/api/tickets', (req, res) => {
 // Write to the JSON file
 app.post('/api/tickets', express.json(), (req, res) => {
     fs.writeFile('tickets.json', JSON.stringify(req.body, null, 2), 'utf8', (err) => {
+        // Handle errors
         if (err) {
             console.error(err);
+            // Send an error response
+            // 500 - Internal Server Error
             res.status(500).send('Error writing to JSON file');
             return;
         }
-        res.send('Data written to JSON file');
+        // Send a success response
+        res.status(201).send('Data written to JSON file');
     });
 });
 
