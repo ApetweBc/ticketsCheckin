@@ -1,0 +1,29 @@
+steps:
+  # Step 1: Install dependencies
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["install"]
+
+  # Step 2: (Optional) Run build script if defined in package.json
+  # For example, if you use a build step like `npm run build`
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["run", "build"]
+
+  # Step 3: Deploy to Google Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    args:
+      [
+        "gcloud",
+        "run",
+        "deploy",
+        "nodejs-app",
+        "--image",
+        "gcr.io/$PROJECT_ID/nodejs-app",
+        "--platform",
+        "managed",
+        "--region",
+        "us-central1",
+        "--allow-unauthenticated",
+      ]
+
+images:
+  - "gcr.io/$PROJECT_ID/nodejs-app"
