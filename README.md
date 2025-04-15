@@ -1,6 +1,6 @@
 # GCAC Tickets Check-in System
 
-A web-based ticket management system for the GCAC Independence Gala event. This application allows event staff to validate and manage ticket statuses through barcode scanning or manual entry.
+A web-based ticket management system for the Events. This application allows event staff to validate and manage ticket statuses through barcode scanning or manual entry.
 
 ## Features
 
