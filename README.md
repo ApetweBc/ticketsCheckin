@@ -1,6 +1,7 @@
 # GCAC Tickets Check-in System
 
-A web-based ticket management system for the Events. This application allows event staff to validate and manage ticket statuses through barcode scanning or manual entry.
+A web-based ticket management system for Events. This application allows event staff to validate and manage ticket statuses through barcode scanning or manual entry.
+Built this to track printed tickets for NGO
 
 ## Features
 
