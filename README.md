@@ -1,4 +1,4 @@
-# GCAC Tickets Check-in System
+# Cobb Tickets Check-in System
 
 A web-based ticket management system for printed Ticket Events. This application allows you to validate and manage ticket statuses through barcode scanning or manual entry.
 Built this to track printed tickets for the community that still relies on selling printed tickets. 
@@ -77,4 +77,5 @@ http://localhost:8080
 
 ## License
 
-Copyright © 2023 GCAC
+Copyright © 2023 CobbyCobb
+https://opensource.org/license/mit
