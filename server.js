@@ -18,25 +18,42 @@ app.get("/api/tickets", (req, res) => {
   });
 });
 
-// Write to the JSON file
+// Write to the JSON file with merge logic
 app.post("/api/tickets", express.json(), (req, res) => {
-  fs.writeFile(
-    "tickets.json",
-    JSON.stringify(req.body, null, 2),
-    "utf8",
-    (err) => {
-      // Handle errors
-      if (err) {
-        console.error(err);
-        // Send an error response
-        // 500 - Internal Server Error
-        res.status(500).send("Error writing to JSON file");
-        return;
-      }
-      // Send a success response
-      res.status(201).send("Data written to JSON file");
+  fs.readFile("tickets.json", "utf8", (readErr, data) => {
+    if (readErr) {
+      console.error(readErr);
+      return res.status(500).send("Error reading ticket file");
     }
-  );
+
+    let existingTickets = {};
+    try {
+      existingTickets = JSON.parse(data);
+    } catch (parseErr) {
+      console.error(parseErr);
+      return res.status(500).send("Error parsing existing ticket data");
+    }
+
+    // Merge new updates into existing ticket data
+    const updatedTickets = {
+      ...existingTickets,
+      ...req.body,
+    };
+
+    fs.writeFile(
+      "tickets.json",
+      JSON.stringify(updatedTickets, null, 2),
+      "utf8",
+      (writeErr) => {
+        if (writeErr) {
+          console.error(writeErr);
+          return res.status(500).send("Error writing to ticket file");
+        }
+
+        res.status(201).send("Ticket status updated successfully");
+      }
+    );
+  });
 });
 
 // Start the server
