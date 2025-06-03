@@ -1,6 +1,7 @@
-# GCAC Tickets Check-in System
+# Cobb Tickets Check-in System
 
-A web-based ticket management system for the Events. This application allows event staff to validate and manage ticket statuses through barcode scanning or manual entry.
+A web-based ticket management system for printed Ticket Events. This application allows you to validate and manage ticket statuses through barcode scanning or manual entry.
+Built this to track printed tickets for the community that still relies on selling printed tickets. 
 
 ## Features
 
@@ -17,7 +18,7 @@ A web-based ticket management system for the Events. This application allows eve
 - Node.js with Express.js backend
 - Pure JavaScript frontend
 - Bootstrap 4.5.2 for UI
-- QuaggaJS for barcode scanning
+- Quagga.js for barcode scanning
 - JSON file-based data storage
 
 ## Installation
@@ -49,10 +50,10 @@ http://localhost:8080
 
 1. Open the home page
 2. Either:
-   - Click "Use Camera to Scan" to scan ticket barcode
+   - Click "Use Camera to Scan" to scan the ticket barcode
    - Manually enter the ticket number (without "GCAC-" prefix)
 3. Click "Lookup Ticket" to verify ticket status
-4. Click "Redeem" to mark ticket as used
+4. Click "Redeem" to mark the ticket as used
 
 ### Viewing Tickets
 
@@ -76,4 +77,5 @@ http://localhost:8080
 
 ## License
 
-Copyright © 2023 GCAC
+Copyright © 2023 CobbyCobb
+https://opensource.org/license/mit
